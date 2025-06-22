@@ -200,6 +200,14 @@
         width: 100%;
         box-sizing: border-box;
         overflow: hidden;
+        opacity: 0; /* Initially hidden */
+        transform: translateY(20px); /* Initially slightly below */
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out; /* Smooth transition */
+      }
+
+      section.animate-in {
+        opacity: 1;
+        transform: translateY(0);
       }
 
       #skills {
@@ -253,7 +261,8 @@
         height: 100%;
         background: linear-gradient(to right, #6c5ce7, #8a2be2);
         border-radius: 9999px;
-        transition: width 0.5s ease-out;
+        width: 0%; /* Start at 0% for animation */
+        transition: width 1.5s ease-out; /* Slower transition for animation */
       }
 
       .skill-progress-percentage {
@@ -310,16 +319,30 @@
         width: calc(50% - var(--timeline-indent-gap));
         position: relative;
         z-index: 8;
+        opacity: 0; /* Initially hidden for animation */
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out; /* Smooth transition */
       }
 
       .timeline-item:nth-child(odd) .timeline-card {
         margin-left: auto;
         text-align: left;
+        transform: translateX(-50px); /* Start from left */
       }
 
       .timeline-item:nth-child(even) .timeline-card {
         margin-right: auto;
         text-align: right;
+        transform: translateX(50px); /* Start from right */
+      }
+
+      .timeline-item:nth-child(odd) .timeline-card.animate-in {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      .timeline-item:nth-child(even) .timeline-card.animate-in {
+        opacity: 1;
+        transform: translateX(0);
       }
 
       .timeline-card-connector {
@@ -351,6 +374,18 @@
         color: #6c5ce7;
         text-decoration: underline;
       }
+
+      .education-card {
+        opacity: 0; /* Initially hidden for animation */
+        transform: translateY(20px); /* Initially slightly below */
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out; /* Smooth transition */
+      }
+
+      .education-card.animate-in {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
 
       @media (max-width: 768px) {
         #timeline-container {
@@ -385,7 +420,13 @@
           margin-right: 0;
           padding-left: calc(1rem + 1rem);
           padding-right: 1rem;
+          transform: translateX(0) !important; /* Override desktop animation for mobile */
         }
+        .timeline-item:nth-child(odd) .timeline-card.animate-in,
+        .timeline-item:nth-child(even) .timeline-card.animate-in {
+          transform: translateX(0) !important;
+        }
+
 
         .timeline-item:nth-child(odd) .timeline-card,
         .timeline-item:nth-child(even) .timeline-card {
@@ -704,24 +745,25 @@
         );
         const skillSectionsContainer = document.getElementById('skill-sections-container');
 
+        // Function to extract primary color from a gradient string
         function getPrimaryColorFromGradient(gradientString) {
           const match = gradientString.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/);
           if (match && match.length >= 4) {
             return `rgb(${match[1]}, ${match[2]}, ${match[3]})`;
           }
-
-          return "#E2E8F0";
+          return "#E2E8F0"; // Default fallback color
         }
 
+        // Populate Experience section
+        const timelineCards = []; // Array to store timeline card elements for animation
         resumeData.experience.forEach((job, index) => {
           const item = document.createElement("div");
-
           item.className = `timeline-item relative flex ${
             index % 2 === 0 ? "justify-end" : "justify-start"
           }`;
 
           const card = document.createElement("div");
-          card.className = "timeline-card";
+          card.className = "timeline-card"; // Add .timeline-card class for animation
           card.innerHTML = `
                     <div class="p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow cursor-pointer" style="background:${job.background};display: inline-block;vertical-align: middle;"><time class="mb-1 text-sm font-normal leading-none text-gray-400">${job.period}</time>
                     <h3 class="text-lg font-semibold text-gray-900">${job.role}</h3>
@@ -745,6 +787,7 @@
 
           item.appendChild(connectorLine);
           item.appendChild(card);
+          timelineCards.push(card); // Store the card for animation
 
           const dot = document.createElement("div");
           dot.className = "timeline-dot";
@@ -755,9 +798,11 @@
           timelineContainer.appendChild(item);
         });
 
+        // Populate Education section
+        const educationCards = []; // Array to store education card elements for animation
         resumeData.education.forEach((edu) => {
           const card = document.createElement("div");
-          card.className = "p-8 rounded-2xl shadow-lg";
+          card.className = "p-8 rounded-2xl shadow-lg education-card"; // Add .education-card class for animation
           card.innerHTML = `
                     <h4 class="text-xl font-bold text-gray-900">${edu.degree}</h4>
                     <p class="text-purple-600 font-medium my-1">${edu.institution} | ${edu.location}</p>
@@ -766,7 +811,11 @@
                 `;
           card.setAttribute("style", `background:${edu.background}`);
           educationContainer.appendChild(card);
+          educationCards.push(card); // Store the card for animation
         });
+
+        // Populate Skills section and prepare for animation
+        const skillBars = []; // Array to store skill bar elements for animation
 
         for (const category in resumeData.skills) {
             const categoryColumn = document.createElement('div');
@@ -790,15 +839,18 @@
                         <span class="skill-progress-percentage">${proficiency}%</span>
                     </div>
                     <div class="skill-progress-bar-container">
-                        <div class="skill-progress-bar-fill" style="width: ${proficiency}%"></div>
+                        <div class="skill-progress-bar-fill" data-proficiency="${proficiency}"></div>
                     </div>
                 `;
                 skillsList.appendChild(skillItem);
+                // Store the fill element for animation
+                skillBars.push(skillItem.querySelector('.skill-progress-bar-fill'));
             }
             categoryColumn.appendChild(skillsList);
             skillSectionsContainer.appendChild(categoryColumn);
         }
 
+        // Modal functionality
         const modal = document.getElementById("details-modal");
         const modalContent = modal.querySelector(".transform");
         const closeModalBtn = document.getElementById("close-modal");
@@ -843,6 +895,7 @@
           }
         });
 
+        // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
           anchor.addEventListener("click", function (e) {
             e.preventDefault();
@@ -852,6 +905,7 @@
           });
         });
 
+        // D3.js Canvas animation for Hero section
         const canvas = document.getElementById("hero-d3-canvas");
         const context = canvas.getContext("2d");
         const heroSection = document.getElementById("hero");
@@ -969,6 +1023,7 @@
         resizeCanvas();
         drawParticles();
 
+        // Typing animation for occupation
         const typedOccupationElement =
           document.getElementById("typed-occupation");
         const occupations = [
@@ -1012,6 +1067,73 @@
         }
 
         typeWriter();
+
+        // Intersection Observer for section animations
+        const sections = document.querySelectorAll('section');
+        const observerOptions = {
+          root: null,
+          rootMargin: '0px',
+          threshold: 0.2 // Trigger when 20% of the section is visible
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('animate-in');
+              // If it's the skills section, animate skill bars
+              if (entry.target.id === 'skills') {
+                skillBars.forEach(bar => {
+                  const proficiency = bar.dataset.proficiency;
+                  bar.style.width = `${proficiency}%`;
+                });
+              }
+            } else {
+              // Optionally remove 'animate-in' when out of view if you want to re-animate on scroll back
+              entry.target.classList.remove('animate-in');
+              // Reset skill bars when out of view
+              if (entry.target.id === 'skills') {
+                skillBars.forEach(bar => {
+                  bar.style.width = '0%';
+                });
+              }
+            }
+          });
+        }, observerOptions);
+
+        sections.forEach(section => {
+          observer.observe(section);
+        });
+
+        // Observe timeline cards for slide-in animation
+        const timelineCardObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('animate-in');
+            } else {
+              entry.target.classList.remove('animate-in');
+            }
+          });
+        }, observerOptions);
+
+        timelineCards.forEach(card => {
+          timelineCardObserver.observe(card);
+        });
+
+        // Observe education cards for fade-in and slide-up animation
+        const educationCardObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('animate-in');
+            } else {
+              entry.target.classList.remove('animate-in');
+            }
+          });
+        }, observerOptions);
+
+        educationCards.forEach(card => {
+          educationCardObserver.observe(card);
+        });
+
       });
     </script>
   </body>
