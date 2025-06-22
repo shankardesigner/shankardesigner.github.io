@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Shankar Bhattarai | Full Stack React Engineer
+    </title>
+    <meta
+      name="description"
+      content="Explore the interactive resume of Shankar Bhattarai, a highly skilled Full Stack React Engineer with expertise in modern web development, Java Spring Boot, Node.js, and scalable cloud solutions."
+    />
+    <meta
+      name="keywords"
+      content="Shankar Bhattarai, Full Stack Engineer, React Developer, Node.js, Java Spring Boot, Software Engineer, Web Developer, Interactive Resume, Portfolio, AWS, Microservices"
+    />
+
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="Shankar Bhattarai | Full Stack React Engineer"
+    />
+    <meta
+      property="og:description"
+      content="Explore the interactive resume of Shankar Bhattarai, a highly skilled Full Stack React Engineer with expertise in modern web development, Java Spring Boot, Node.js, and scalable cloud solutions."
+    />
+    <meta
+      property="og:image"
+      content="https://placehold.co/1200x630/E7E5FF/2C2C54?text=Shankar+Bhattarai+\n+Full-Stack+Software+Engineer"
+    />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        background: linear-gradient(
+          153deg,
+          rgb(231, 229, 255) 3.66%,
+          rgb(255, 247, 255) 100%
+        );
+        background-attachment: fixed;
+        color: #2c2c54;
+      }
+
+      .nav-link {
+        transition: color 0.3s, border-bottom-color 0.3s;
+        border-bottom: 2px solid transparent;
+      }
+
+      .nav-link:hover,
+      .nav-link.active {
+        color: #6c5ce7;
+        border-bottom-color: #6c5ce7;
+      }
+
+      .icon-link svg {
+        transition: fill 0.3s;
+      }
+
+      .icon-link:hover svg {
+        fill: #6c5ce7;
+      }
+
+      .hero-gradient-text {
+        background: linear-gradient(to right, #6c5ce7, #8a2be2);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .main-heading {
+        color: #2c2c54;
+      }
+
+      .logo-text {
+        font-size: 2rem;
+        font-weight: 800;
+        line-height: 1;
+        background: linear-gradient(to right, #6c5ce7, #8a2be2);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        color: transparent;
+      }
+
+      #hero-d3-canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+      }
+
+      #hero {
+        position: relative;
+        overflow: hidden;
+        padding-top: 4rem;
+        padding-bottom: 4rem;
+        height: 100vh;
+      }
+
+      .avatar-placeholder {
+        width: 200px;
+        height: 200px;
+        background-color: #d8d8e8;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #6c5ce7;
+        font-size: 8rem;
+        font-weight: bold;
+        margin-left: auto;
+        margin-right: 0;
+        opacity: 0.8;
+        border: 4px solid #6c5ce7;
+        overflow: hidden;
+      }
+
+      .avatar-placeholder span {
+        line-height: 1;
+      }
+
+      @media (max-width: 768px) {
+        .avatar-placeholder {
+          width: 120px;
+          height: 120px;
+          font-size: 4rem;
+          margin: 2rem auto;
+        }
+
+        #hero .flex-col-reverse-md {
+          flex-direction: column-reverse;
+        }
+
+        #hero .text-left {
+          text-align: center;
+        }
+      }
+
+      .typing-cursor {
+        display: inline-block;
+        width: 3px;
+        background-color: #6c5ce7;
+        margin-left: 2px;
+        animation: blink-caret 0.75s step-end infinite;
+        vertical-align: middle;
+      }
+
+      @keyframes blink-caret {
+        from,
+        to {
+          background-color: transparent;
+        }
+
+        50% {
+          background-color: #6c5ce7;
+        }
+      }
+
+      #typed-occupation {
+        display: inline-block;
+        min-width: 25ch;
+        text-align: left;
+      }
+
+      @media (max-width: 768px) {
+        #typed-occupation {
+          min-width: unset;
+          display: block;
+          text-align: center;
+          margin: 0 auto;
+        }
+      }
+
+      #hero h2 {
+        min-height: 5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      @media (min-width: 768px) {
+        #hero h2 {
+          justify-content: flex-start;
+        }
+      }
+
+      section {
+        padding-top: 4rem;
+        padding-bottom: 4rem;
+        width: 100%;
+        box-sizing: border-box;
+        overflow: hidden;
+      }
+
+      #skills {
+        background-color: linear-gradient(
+          153deg,
+          rgb(231, 229, 255) 3.66%,
+          rgb(255, 247, 255) 100%
+        );
+      }
+
+      #skill-tabs-nav {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
+
+      .tab-button {
+        padding: 0.75rem 1.5rem;
+        border-radius: 9999px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s;
+        background-color: #4a4a7a;
+        color: #f8f8ff;
+        border: none;
+      }
+
+      .tab-button.active {
+        background-color: #6c5ce7;
+        color: white;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      }
+
+      .skill-category-content {
+        display: none;
+      }
+
+      .skill-category-content.active {
+        display: block;
+      }
+
+      .skill-progress-item {
+        margin-bottom: 1rem;
+      }
+
+      .skill-progress-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+
+        font-size: 0.95rem;
+      }
+
+      .skill-progress-bar-container {
+        width: 100%;
+        background-color: rgba(255, 255, 255, 0.15);
+        border-radius: 9999px;
+        height: 0.75rem;
+        overflow: hidden;
+      }
+
+      .skill-progress-bar-fill {
+        height: 100%;
+        background: linear-gradient(to right, #6c5ce7, #8a2be2);
+        border-radius: 9999px;
+        transition: width 0.5s ease-out;
+      }
+
+      .skill-progress-percentage {
+        font-size: 0.85rem;
+        font-weight: bold;
+      }
+
+      #timeline-container {
+        position: relative;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+
+        width: 100%;
+        margin: 0 auto;
+      }
+
+      .timeline-line {
+        position: absolute;
+        left: 50%;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background-color: #d8d8e8;
+        transform: translateX(-50%);
+        z-index: 5;
+      }
+
+      .timeline-item {
+        position: relative;
+        display: flex;
+        align-items: center;
+        width: 100%;
+      }
+
+      .timeline-dot {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 1rem;
+        height: 1rem;
+        background-color: #f8f8ff;
+        border-radius: 9999px;
+        border: 2px solid #6c5ce7;
+        transition: background-color 0.3s, border-color 0.3s;
+        z-index: 10;
+      }
+
+      :root {
+        --timeline-indent-gap: 50px;
+      }
+
+      .timeline-card {
+        width: calc(50% - var(--timeline-indent-gap));
+        position: relative;
+        z-index: 8;
+      }
+
+      .timeline-item:nth-child(odd) .timeline-card {
+        margin-left: auto;
+        text-align: left;
+      }
+
+      .timeline-item:nth-child(even) .timeline-card {
+        margin-right: auto;
+        text-align: right;
+      }
+
+      .timeline-card-connector {
+        position: absolute;
+        top: 50%;
+        height: 1px;
+        background-color: var(--connector-color);
+        transform: translateY(-50%);
+        z-index: 7;
+        width: var(--timeline-indent-gap);
+      }
+
+      .timeline-item:nth-child(odd) .timeline-card-connector {
+        right: calc(50% - var(--timeline-indent-gap));
+      }
+
+      .timeline-item:nth-child(even) .timeline-card-connector {
+        left: calc(50% - var(--timeline-indent-gap));
+      }
+
+      .view-more-button {
+        color: #2c2c54;
+        font-size: 0.875rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+      }
+
+      .view-more-button:hover {
+        color: #6c5ce7;
+        text-decoration: underline;
+      }
+
+      @media (max-width: 768px) {
+        #timeline-container {
+          width: 100%;
+          padding-left: 1rem;
+          padding-right: 1rem;
+        }
+
+        .timeline-line {
+          left: 1rem;
+          transform: translateX(-50%);
+        }
+
+        .timeline-item {
+          flex-direction: column;
+          align-items: flex-start;
+          margin-left: 0;
+          margin-right: 0;
+          padding-left: 0;
+          padding-right: 0;
+        }
+
+        .timeline-dot {
+          left: 1rem;
+          top: 1rem;
+          transform: translate(-50%, 0);
+        }
+
+        .timeline-card {
+          width: 100%;
+          margin-left: 0;
+          margin-right: 0;
+          padding-left: calc(1rem + 1rem);
+          padding-right: 1rem;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-card,
+        .timeline-item:nth-child(even) .timeline-card {
+          margin-left: calc(1rem + 1rem);
+          margin-right: 0;
+        }
+
+        .timeline-item:nth-child(even) {
+          flex-direction: column;
+        }
+
+        .timeline-card-connector {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="antialiased">
+    <header class="bg-white/80 backdrop-blur-lg shadow-sm sticky top-0 z-40">
+      <nav
+        class="container mx-auto px-6 py-4 flex justify-between items-center"
+      >
+        <h1 class="logo-text"><a href="/">&lt;SB/&gt;</a></h1>
+        <div class="flex items-center space-x-4 ml-auto">
+          <a
+            href="#experience"
+            class="nav-link font-medium pb-1 text-gray-700 hover:text-purple-600"
+            >Experience</a
+          >
+          <a
+            href="#skills"
+            class="nav-link font-medium pb-1 text-gray-700 hover:text-purple-600"
+            >Skills</a
+          >
+          <a
+            href="#education"
+            class="nav-link font-medium pb-1 text-gray-700 hover:text-purple-600"
+            >Education</a
+          >
+          <a
+            href="mailto:shankarbhattarai2063@gmail.com"
+            class="border border-purple-600 text-purple-600 font-bold py-2 px-4 rounded-lg hover:bg-purple-600 hover:text-white transition-all"
+          >
+            Say Hello
+          </a>
+        </div>
+      </nav>
+    </header>
+
+    <main class="w-full">
+      <section id="hero">
+        <canvas id="hero-d3-canvas"></canvas>
+        <div
+          class="relative z-10 container mx-auto px-6 py-16 md:py-24 flex items-center justify-between flex-col-reverse md:flex-row"
+        >
+          <div class="text-left w-full md:w-3/5">
+            <h2
+              class="text-3xl md:text-5xl font-bold main-heading leading-tight"
+            >
+              Hi! <span class="px-2">It's me Shankar Bhattarai</span>
+            </h2>
+            <h3 class="text-3xl font-bold">I am a <span id="typed-occupation" class="text-violet-600 dark:text-violet-400"></span
+              ><span class="typing-cursor"></span></h3>
+            <p class="mt-4 text-lg md:text-xl text-gray-700">
+              Highly skilled Full Stack React Engineer with 5+ years of
+              experience designing, developing, and deploying robust web
+              applications. Proficient in ReactJS, Node.js, Java (Spring Boot),
+              and RESTful APIs; proven ability to build scalable,
+              high-performance solutions driving business growth.
+            </p>
+            <div class="mt-8 flex items-center space-x-4">
+              <a
+                href="https://www.linkedin.com/in/shankardesigner"
+                target="_blank"
+                class="text-gray-600 hover:text-purple-600 transition-colors icon-link"
+                title="LinkedIn"
+              >
+                <svg class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"
+                  ></path>
+                </svg>
+              </a>
+              <a
+                href="https://github.com/shankardesigner"
+                target="_blank"
+                class="text-gray-600 hover:text-purple-600 transition-colors icon-link"
+                title="GitHub"
+              >
+                <svg class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.652.242 2.873.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+                  ></path>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <div
+            class="w-full md:w-2/5 flex justify-center md:justify-end relative z-10"
+          >
+            <div class="avatar-placeholder">
+              <span>👨‍💻</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="experience" class="bg-white">
+        <div class="container mx-auto px-6 py-16 md:py-24">
+          <h3 class="text-3xl font-bold text-center mb-12 main-heading">
+            Professional Experience
+          </h3>
+          <div id="timeline-container" class="mx-auto relative">
+            <div class="timeline-line"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="skills">
+        <div class="container mx-auto px-6 py-16 md:py-24">
+          <h3 class="text-3xl font-bold text-center mb-4 main-heading">
+            Skills & Core Competencies
+          </h3>
+          <p class="text-center text-gray-700 mb-12">
+            An organized overview of my technical capabilities.
+          </p>
+
+          <div
+            id="skill-tabs-nav"
+            class="flex justify-center flex-wrap gap-4 mb-8"
+          ></div>
+
+          <div id="skill-tabs-content"></div>
+        </div>
+      </section>
+
+      <section id="education" class="bg-white">
+        <div class="container mx-auto px-6 py-16 md:py-24">
+          <h3 class="text-3xl font-bold text-center mb-12 main-heading">
+            Education
+          </h3>
+          <div
+            id="education-container"
+            class="max-w-5xl mx-auto grid md:grid-cols-2 gap-8"
+          ></div>
+        </div>
+      </section>
+      <footer
+        class="bg-white/80 backdrop-blur-lg py-8 text-center text-gray-600"
+      >
+        <div class="container mx-auto px-6">
+          <p>&copy; 2025 Shankar Bhattarai. All rights reserved.</p>
+          <p class="mt-2 text-sm">
+            Built with <span class="text-red-500">&#10084;</span>
+          </p>
+        </div>
+      </footer>
+    </main>
+
+    <div
+      id="details-modal"
+      class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 p-4"
+    >
+      <div
+        class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-8 relative transform transition-all scale-95 opacity-0"
+      >
+        <button
+          id="close-modal"
+          class="absolute top-4 right-4 text-gray-400 hover:text-gray-800"
+        >
+          <svg
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            ></path>
+          </svg>
+        </button>
+        <h4 id="modal-title" class="text-2xl font-bold mb-2"></h4>
+        <p id="modal-subtitle" class="text-gray-500 mb-6"></p>
+        <div id="modal-content" class="text-gray-700 space-y-3"></div>
+      </div>
+    </div>
+
+    <script>
+      const resumeData = {
+        experience: [
+          {
+            role: "Full Stack Software Engineer",
+            company: "DirectMail.io, LLC",
+            location: "Mandeville, Louisiana",
+            period: "February 2025 - Current",
+            details: [
+              "Architected/implemented scalable backend microservices (Java/Spring Boot) handling **1M+ daily transactions**.",
+              "Developed/optimized RESTful APIs, ensuring **99.9% uptime** and secure data exchange.",
+              "Built data pipelines for real-time analytics, supporting **1M+ users**.",
+              "Re-architected monolithic app to microservices, reducing latency (**25% improvement**) and enhancing scalability.",
+              "Rebuilt monolithic frontend to high-performance React for **1M+ users**, boosting engagement by **30%**.",
+              "Developed dynamic drag-and-drop campaign builder (Craft.js, React, TypeScript), cutting creation time by **15%**.",
+              "Led microservices migration, improving performance by **40%**.",
+              "Integrated email, SMS, social platforms; dashboards led to **10% more effective** targeting.",
+              "Migrated monolithic systems to containerized microservices, reducing deployment overhead by **45%**.",
+            ],
+            background:
+              "linear-gradient(153deg, rgb(231, 229, 255) 3.66%, rgb(255, 247, 255) 100%)",
+          },
+          {
+            role: "Software Engineer III, (Full Stack)",
+            company: "Fusemachines",
+            location: "Kathmandu, Nepal",
+            period: "August 2020 - August 2022",
+            details: [
+              "Developed scalable SPAs (ReactJS, Node.js, Java), optimizing JavaScript (TypeScript/ES6) for **500K+ active users**.",
+              "Maintained Java microservices (Spring Boot, PostgreSQL), cutting release cycles by **45%**.",
+              "Built **3+ full-stack applications** (React, Next.js, Redux-Toolkit, TypeScript) for responsive SPAs.",
+              "Optimized Java RESTful APIs, achieving **30% backend response time improvement** (<210ms).",
+              "Automated CI/CD pipelines (Docker, GitHub Actions), streamlining Java deployments (**20% manual effort**).",
+              "Collaborated in Agile teams, delivering **15+ features** and resolving **100+ bugs** for critical projects.",
+              "Led frontend for admissions/academic platform, onboarding **5+ institutional clients** and supporting **100K+ users**.",
+              "Designed scalable, customizable React + TypeScript architecture.",
+              "Mentored **8 junior developers**, wrote documentation; resulted in **2x faster onboarding**.",
+            ],
+            background:
+              "linear-gradient(135deg, rgb(255, 222, 228) 0%, rgb(255, 249, 233) 100%)",
+          },
+          {
+            role: "Front End Engineer",
+            company: "Rapid Web Solutions P. Ltd.",
+            location: "Kathmandu, Nepal",
+            period: "July 2014 - January 2020",
+            details: [
+              "Analyzed requirements, contributing to technical proposals for **10+ web projects**.",
+              "Upgraded web applications (Bootstrap, Foundation, jQuery, ReactJS), enhancing UX/maintainability by **20%**.",
+              "Wrote application-level code to interact with RESTful APIs, enabling dynamic MERN Stack apps (**50+ interactive components**).",
+              "Conducted cross-browser compatibility testing and implemented responsive frameworks, resolving HTML, CSS3, SCSS and JavaScript bugs through systematic unit testing.",
+            ],
+            background:
+              "linear-gradient(135deg, rgb(234, 234, 234) 0%, rgb(255, 245, 247) 100%)",
+          },
+          {
+            role: "Web Designer",
+            company: "Decade International Pvt Ltd",
+            location: "Samakhushi Kathmandu, Nepal",
+            period: "February 2012 - April 2014",
+            details: [
+              "Performed web/graphic design (Photoshop, Corel Draw, Illustrator).",
+              "Developed websites (HTML5/CSS3, JavaScript/jQuery), ensuring cross-browser/responsive layouts.",
+              "Implemented SEO semantic coding and optimized site load speed for enhanced web presence and user experience.",
+              "Ensured pixel-perfect markup.",
+            ],
+            background:
+              "linear-gradient(135deg, rgb(208, 249, 232) 0%, rgb(237, 231, 255) 100%)",
+          },
+        ],
+        skills: {
+          Frontend: {
+            ReactJS: 95,
+            "Next.js": 90,
+            "JavaScript (ES6+)": 95,
+            TypeScript: 90,
+            "HTML5/CSS3": 98,
+            "Tailwind CSS": 92,
+            Redux: 88,
+          },
+          Backend: {
+            "Node.js": 90,
+            "Java (Spring Boot)": 85,
+            "Express.js": 88,
+            Microservices: 85,
+            "RESTful APIs": 95,
+            "Apache Kafka": 70,
+          },
+          "Cloud & DevOps": {
+            AWS: 75,
+            Docker: 85,
+            Kubernetes: 70,
+            "CI/CD": 80,
+            Jenkins: 75,
+            "GitHub Actions": 85,
+          },
+          Databases: {
+            PostgreSQL: 85,
+            MySQL: 80,
+            MongoDB: 78,
+            Cassandra: 65,
+          },
+        },
+        education: [
+          {
+            degree: "MS, Computer Science (Artificial Intelligence)",
+            institution: "Troy University",
+            location: "Troy, AL, USA",
+            period: "January 2024 - December 2025",
+            focus:
+              "Data Structure, Software Engineering, AI, Cyber Security, Network Security",
+            background:
+              "linear-gradient(135deg, rgb(255, 222, 228) 0%, rgb(255, 249, 233) 100%)",
+          },
+          {
+            degree: "Bachelor of Information Technology (BIT)",
+            institution: "Purwanchal University",
+            location: "Kathmandu, Nepal",
+            period: "August 2014 - December 2018",
+            focus:
+              "Computer Science, Information Technology, Software Engineering, AI, Operation System",
+            background:
+              "linear-gradient(153deg, rgb(231, 229, 255) 3.66%, rgb(255, 247, 255) 100%)",
+          },
+        ],
+      };
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const timelineContainer = document.getElementById("timeline-container");
+        const educationContainer = document.getElementById(
+          "education-container"
+        );
+        const skillsTabsNav = document.getElementById("skill-tabs-nav");
+        const skillsTabsContent = document.getElementById("skill-tabs-content");
+
+        function getPrimaryColorFromGradient(gradientString) {
+          const match = gradientString.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/);
+          if (match && match.length >= 4) {
+            return `rgb(${match[1]}, ${match[2]}, ${match[3]})`;
+          }
+
+          return "#E2E8F0";
+        }
+
+        resumeData.experience.forEach((job, index) => {
+          const item = document.createElement("div");
+
+          item.className = `timeline-item relative flex ${
+            index % 2 === 0 ? "justify-end" : "justify-start"
+          }`;
+
+          const card = document.createElement("div");
+          card.className = "timeline-card";
+          card.innerHTML = `
+                    <div class="p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow cursor-pointer" style="background:${job.background};display: inline-block;vertical-align: middle;"><time class="mb-1 text-sm font-normal leading-none text-gray-400">${job.period}</time>
+                    <h3 class="text-lg font-semibold text-gray-900">${job.role}</h3>
+                    <p class="text-base font-normal text-gray-500">${job.company} - ${job.location}</p><a class="view-more-button font-semibold transition-colors">
+                        View Details
+                    </a></div>
+                `;
+
+          card
+            .querySelector(".view-more-button")
+            .addEventListener("click", (event) => {
+              event.stopPropagation();
+              showModal(job);
+            });
+
+          const primaryColor = getPrimaryColorFromGradient(job.background);
+
+          const connectorLine = document.createElement("div");
+          connectorLine.className = "timeline-card-connector";
+          connectorLine.style.backgroundColor = primaryColor;
+
+          item.appendChild(connectorLine);
+          item.appendChild(card);
+
+          const dot = document.createElement("div");
+          dot.className = "timeline-dot";
+          dot.style.backgroundColor = primaryColor;
+          dot.style.borderColor = primaryColor;
+          item.appendChild(dot);
+
+          timelineContainer.appendChild(item);
+        });
+
+        resumeData.education.forEach((edu) => {
+          const card = document.createElement("div");
+          card.className = "p-8 rounded-2xl shadow-lg";
+          card.innerHTML = `
+                    <h4 class="text-xl font-bold text-gray-900">${edu.degree}</h4>
+                    <p class="text-purple-600 font-medium my-1">${edu.institution} | ${edu.location}</p>
+                    <p class="text-gray-500 mb-4">${edu.period}</p>
+                    <p class="text-gray-600"><span class="font-semibold">Focus:</span> ${edu.focus}</p>
+                `;
+          card.setAttribute("style", `background:${edu.background}`);
+          educationContainer.appendChild(card);
+        });
+
+        let firstCategory = true;
+        for (const category in resumeData.skills) {
+          const tabButton = document.createElement("button");
+          tabButton.textContent = category;
+          tabButton.className = "tab-button";
+          tabButton.setAttribute("data-category", category);
+          if (firstCategory) {
+            tabButton.classList.add("active");
+          }
+          skillsTabsNav.appendChild(tabButton);
+
+          const tabContentDiv = document.createElement("div");
+          tabContentDiv.id = `skills-${category
+            .toLowerCase()
+            .replace(/\s/g, "-")}-content`;
+          tabContentDiv.className = "skill-category-content";
+          if (firstCategory) {
+            tabContentDiv.classList.add("active");
+          }
+
+          const skillsList = document.createElement("div");
+
+          skillsList.className =
+            "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-4";
+
+          for (const skillName in resumeData.skills[category]) {
+            const proficiency = resumeData.skills[category][skillName];
+            const skillItem = document.createElement("div");
+            skillItem.className = "skill-progress-item";
+            skillItem.innerHTML = `
+                        <div class="skill-progress-header">
+                            <span>${skillName}</span>
+                            <span class="skill-progress-percentage">${proficiency}%</span>
+                        </div>
+                        <div class="skill-progress-bar-container">
+                            <div class="skill-progress-bar-fill" style="width: ${proficiency}%"></div>
+                        </div>
+                    `;
+            skillsList.appendChild(skillItem);
+          }
+          tabContentDiv.appendChild(skillsList);
+          skillsTabsContent.appendChild(tabContentDiv);
+
+          firstCategory = false;
+        }
+
+        skillsTabsNav.querySelectorAll(".tab-button").forEach((button) => {
+          button.addEventListener("click", () => {
+            skillsTabsNav
+              .querySelectorAll(".tab-button")
+              .forEach((btn) => btn.classList.remove("active"));
+            skillsTabsContent
+              .querySelectorAll(".skill-category-content")
+              .forEach((content) => content.classList.remove("active"));
+
+            button.classList.add("active");
+            const targetCategory = button.getAttribute("data-category");
+            document
+              .getElementById(
+                `skills-${targetCategory
+                  .toLowerCase()
+                  .replace(/\s/g, "-")}-content`
+              )
+              .classList.add("active");
+          });
+        });
+
+        const modal = document.getElementById("details-modal");
+        const modalContent = modal.querySelector(".transform");
+        const closeModalBtn = document.getElementById("close-modal");
+
+        function formatDetail(text) {
+          const boldedText = text.replace(
+            /\*\*(.*?)\*\*/g,
+            '<strong class="text-purple-600 font-semibold">$1</strong>'
+          );
+          return `<li class="flex items-start"><span class="text-purple-500 mr-3 mt-1">&#10003;</span><span>${boldedText}</span></li>`;
+        }
+
+        function showModal(job) {
+          document.getElementById("modal-title").textContent = job.role;
+          document.getElementById(
+            "modal-subtitle"
+          ).textContent = `${job.company} | ${job.location} | ${job.period}`;
+          const contentContainer = document.getElementById("modal-content");
+          contentContainer.innerHTML = `<ul class="space-y-3">${job.details
+            .map(formatDetail)
+            .join("")}</ul>`;
+
+          modal.classList.remove("hidden");
+          modal.classList.add("flex");
+          setTimeout(() => {
+            modalContent.classList.remove("scale-95", "opacity-0");
+          }, 50);
+        }
+
+        function closeModal() {
+          modalContent.classList.add("scale-95", "opacity-0");
+          setTimeout(() => {
+            modal.classList.add("hidden");
+            modal.classList.remove("flex");
+          }, 200);
+        }
+
+        closeModalBtn.addEventListener("click", closeModal);
+        modal.addEventListener("click", (e) => {
+          if (e.target === modal) {
+            closeModal();
+          }
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+          anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute("href")).scrollIntoView({
+              behavior: "smooth",
+            });
+          });
+        });
+
+        const canvas = document.getElementById("hero-d3-canvas");
+        const context = canvas.getContext("2d");
+        const heroSection = document.getElementById("hero");
+
+        let width, height;
+        let particles = [];
+        const numParticles = 80;
+        const maxRadius = 3;
+        const maxVelocity = 0.5;
+        const lineDistance = 150;
+        const repelForce = 50;
+
+        let mouse = { x: undefined, y: undefined, radius: 100 };
+
+        function resizeCanvas() {
+          width = canvas.width = heroSection.clientWidth;
+          height = canvas.height = heroSection.clientHeight;
+          createParticles();
+        }
+
+        function createParticles() {
+          particles = [];
+          for (let i = 0; i < numParticles; i++) {
+            particles.push({
+              x: Math.random() * width,
+              y: Math.random() * height,
+              vx: (Math.random() - 0.5) * maxVelocity,
+              vy: (Math.random() - 0.5) * maxVelocity,
+              radius: Math.random() * maxRadius + 1,
+              originalColor: `rgba(180, 180, 255, ${
+                0.3 + Math.random() * 0.4
+              })`,
+              hoverColor: `rgba(108, 92, 231, ${0.8 + Math.random() * 0.2})`,
+              currentColor: "",
+            });
+            particles[i].currentColor = particles[i].originalColor;
+          }
+        }
+
+        function drawParticles() {
+          context.clearRect(0, 0, width, height);
+
+          for (let i = 0; i < particles.length; i++) {
+            const p = particles[i];
+
+            p.x += p.vx;
+            p.y += p.vy;
+
+            if (p.x < 0 || p.x > width) p.vx *= -1;
+            if (p.y < 0 || p.y > height) p.vy *= -1;
+
+            if (mouse.x !== undefined) {
+              const dx = p.x - mouse.x;
+              const dy = p.y - mouse.y;
+              const distance = Math.sqrt(dx * dx + dy * dy);
+
+              if (distance < mouse.radius) {
+                const angle = Math.atan2(dy, dx);
+                const force = (mouse.radius - distance) / mouse.radius;
+                p.x += Math.cos(angle) * force * repelForce * 0.1;
+                p.y += Math.sin(angle) * force * repelForce * 0.1;
+                p.currentColor = p.hoverColor;
+              } else {
+                p.currentColor = p.originalColor;
+              }
+            } else {
+              p.currentColor = p.originalColor;
+            }
+
+            context.beginPath();
+            context.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            context.fillStyle = p.currentColor;
+            context.fill();
+
+            for (let j = i + 1; j < particles.length; j++) {
+              const p2 = particles[j];
+              const dist = Math.sqrt(
+                Math.pow(p.x - p2.x, 2) + Math.pow(p.y - p2.y, 2)
+              );
+
+              if (dist < lineDistance) {
+                const opacity = 1 - dist / lineDistance;
+                context.beginPath();
+                context.moveTo(p.x, p.y);
+                context.lineTo(p2.x, p2.y);
+
+                const color1 = d3.color(p.currentColor);
+                const color2 = d3.color(p2.currentColor);
+                const avgR = (color1.r + color2.r) / 2;
+                const avgG = (color1.g + color2.g) / 2;
+                const avgB = (color1.b + color2.b) / 2;
+
+                context.strokeStyle = `rgba(${avgR}, ${avgG}, ${avgB}, ${opacity})`;
+                context.lineWidth = 0.5;
+                context.stroke();
+              }
+            }
+          }
+          requestAnimationFrame(drawParticles);
+        }
+
+        window.addEventListener("resize", resizeCanvas);
+
+        heroSection.addEventListener("mousemove", (e) => {
+          const rect = heroSection.getBoundingClientRect();
+          mouse.x = e.clientX - rect.left;
+          mouse.y = e.clientY - rect.top;
+        });
+
+        heroSection.addEventListener("mouseleave", () => {
+          mouse.x = undefined;
+          mouse.y = undefined;
+        });
+
+        resizeCanvas();
+        drawParticles();
+
+        const typedOccupationElement =
+          document.getElementById("typed-occupation");
+        const occupations = [
+          "Software Engineer",
+          "Full Stack Developer",
+          "React Specialist",
+        ];
+        let occupationIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let typingSpeed = 100;
+
+        function typeWriter() {
+          const currentOccupation = occupations[occupationIndex];
+          if (isDeleting) {
+            typedOccupationElement.textContent = currentOccupation.substring(
+              0,
+              charIndex - 1
+            );
+            charIndex--;
+            typingSpeed = 50;
+          } else {
+            typedOccupationElement.textContent = currentOccupation.substring(
+              0,
+              charIndex + 1
+            );
+            charIndex++;
+            typingSpeed = 100;
+          }
+
+          if (!isDeleting && charIndex === currentOccupation.length) {
+            typingSpeed = 2000;
+            isDeleting = true;
+          } else if (isDeleting && charIndex === 0) {
+            isDeleting = false;
+            occupationIndex = (occupationIndex + 1) % occupations.length;
+            typingSpeed = 500;
+          }
+
+          setTimeout(typeWriter, typingSpeed);
+        }
+
+        typeWriter();
+      });
+    </script>
+  </body>
+</html>
